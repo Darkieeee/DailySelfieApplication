@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
          //Cancel the alarm when we are in app
          Intent broadcastIntent = new Intent(context, DailySelfieReceiver.class);
          PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                                                                 0,
-                                                                 broadcastIntent,
-                                                                 PendingIntent.FLAG_NO_CREATE);
+                                                                  0,
+                                                                  broadcastIntent,
+                                                                  PendingIntent.FLAG_NO_CREATE);
          AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
          if (alarmManager != null && pendingIntent != null) {
              alarmManager.cancel(pendingIntent);
@@ -263,9 +263,9 @@ public class MainActivity extends AppCompatActivity {
     private void createAlarm(Context context) {
         Intent broadcastIntent = new Intent(context, DailySelfieReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                                                                0,
+                                                                 0,
                                                                  broadcastIntent,
-                                                                PendingIntent.FLAG_CANCEL_CURRENT);
+                                                                 PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             /*

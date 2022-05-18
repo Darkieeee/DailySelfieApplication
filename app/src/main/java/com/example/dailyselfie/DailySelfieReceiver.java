@@ -31,10 +31,10 @@ public class DailySelfieReceiver extends BroadcastReceiver {
         createNotificationChannel(context);
         Intent openApp = new Intent(context, MainActivity.class);
         openApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                                                                0,
-                                                                openApp,
-                                                                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                                                                 0,
+                                                                 openApp,
+                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, AppConstants.Notification.CHANNEL_ID)
                                                                    .setSmallIcon(android.R.drawable.ic_menu_camera)

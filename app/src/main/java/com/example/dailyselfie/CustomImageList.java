@@ -1,20 +1,12 @@
 package com.example.dailyselfie;
 
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
-
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
@@ -96,38 +88,4 @@ public class CustomImageList extends BaseAdapter {
         TextView imageDescription;
     }
 
-    class LoadImageTask extends AsyncTask<String, Bitmap, Bitmap> {
-
-        private int position;
-        private String path;
-        private ViewHolder viewHolder;
-
-        public LoadImageTask(int position, @NonNull ViewHolder viewHolder) {
-            super();
-            this.position = position;
-            this.viewHolder = viewHolder;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            path = strings[0];
-            Bitmap bm = null;
-            if (!isCancelled()) {
-                if (path != null) {
-                    bm = ImageHelper.scaleBitmap(path, ImageHelper.DEFAULT_TARGET_WIDTH, ImageHelper.DEFAULT_TARGET_HEIGHT);
-                }
-            }
-            return bm;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            super.onPostExecute(result);
-            if (viewHolder.position == position) {
-                if (result != null) {
-                    viewHolder.imageView.setImageBitmap(result);
-                }
-            }
-        }
-    }
 }

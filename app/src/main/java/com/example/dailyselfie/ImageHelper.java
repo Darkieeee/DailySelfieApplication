@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+
 public class ImageHelper {
 
     public static int DEFAULT_TARGET_WIDTH = 150;
@@ -23,8 +25,7 @@ public class ImageHelper {
 
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
+            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
                 inSampleSize *= 2;
             }
         }
@@ -64,7 +65,7 @@ public class ImageHelper {
                                        ImageHelper.DEFAULT_TARGET_HEIGHT);
     }
 
-    public static Bitmap scaleBitmap(String imagePath, ImageView view) {
+    public static Bitmap scaleBitmap(String imagePath, @NonNull ImageView view) {
         int targetW = view.getWidth();
         int targetH = view.getHeight();
         if (targetW == 0)
