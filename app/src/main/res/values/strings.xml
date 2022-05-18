@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Daily Selfie</string>
+    <string name="closeOptMenu">Close App</string>
+    <string name="recentlyDeletedPhotoOptMenu">Recently Deleted Photo</string>
+</resources>
