@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.lang.ref.WeakReference;
 
 public class FullScreenImageActivity extends AppCompatActivity {
@@ -53,8 +52,12 @@ public class FullScreenImageActivity extends AppCompatActivity {
             Matrix matrix = new Matrix();
             matrix.postRotate(90);
             Bitmap sourceBitmap = BitmapFactory.decodeFile(URI);
-
-            return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+            if (sourceBitmap != null) {
+                return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+            }
+            else {
+                return null;
+            }
         }
 
         @Override

@@ -121,11 +121,10 @@ public class MainActivity extends AppCompatActivity {
                                 // When the user selects "Yes", the photo file will be deleted. But I will move it to the "image_deleted" directory
                                 // in order to read it when needed
                                 File photo = new File(currentPic.getImagePath());
-                                File dir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()
-                                                     + AppConstants.Directory.DEFAULT_IMAGE_DELETED_DIRECTORY);
+                                File newDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), AppConstants.Directory.DEFAULT_IMAGE_DELETED_DIRECTORY);
 
                                 //Variable "deleted" that checks if the file has been moved successfully or not
-                                boolean deleted = moveFile(photo, dir);
+                                boolean deleted = moveFile(photo, newDir);
                                 if(deleted) {
                                     customImageList.removeItemAt(position);
                                 } else {
@@ -244,9 +243,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Move file from current directory to another directory
+     * Move file from current directory to another one
      * @param f   the file want to move
-     * @param dir the directory for move progress
+     * @param dir the directory for moving progress
      * @return    true if move the file successfully to another directory.
      *            Otherwise return false.
      */
@@ -257,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         }
-        return f.renameTo(new File(dir.getPath() + "/" + f.getName()));
+        return f.renameTo(new File(dir.getPath(), f.getName()));
     }
 
     private void createAlarm(Context context) {
@@ -267,22 +266,36 @@ public class MainActivity extends AppCompatActivity {
                                                                  broadcastIntent,
                                                                  PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        // Suppose your case needs more time to trigger the alarm and you don't really
+        // want it to go off at an exact time for improving battery life,
+        // for instance one hour to trigger. You might call
+        // the "setRepeatingAlarm()" function below
+        // Example: setReapingAlarm(alarmManager, pendingIntent, AlarmManager.INTERVAL_HOUR);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                                  System.currentTimeMillis() + AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
+                                  AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
+                                  pendingIntent);
+    }
+
+    private void setRepeatingAlarm(AlarmManager alm, PendingIntent pendingIntent, long interval) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             /*
                Since API level 19 (Android Marshmello 6.0), setRepeating() will repeat inexactly time
                because of the Doze mode. So in this case, I use setInexactRepeating() instead
                Reference: https://developer.android.com/reference/android/app/AlarmManager#setRepeating(int,%20long,%20long,%20android.app.PendingIntent)
              */
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                                             System.currentTimeMillis() + AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
-                                             AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
-                                             pendingIntent);
+            alm.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                                    System.currentTimeMillis() + interval,
+                                    interval,
+                                    pendingIntent);
         }
         else {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                                      System.currentTimeMillis() + AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
-                                      AppConstants.Alarm.INTERVAL_TWO_MINUTES_CLOCK,
-                                      pendingIntent);
+            alm.setRepeating(AlarmManager.RTC_WAKEUP,
+                             System.currentTimeMillis() + interval,
+                             interval,
+                             pendingIntent);
         }
     }
 }

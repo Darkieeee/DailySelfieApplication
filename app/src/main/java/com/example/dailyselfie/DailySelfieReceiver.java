@@ -17,7 +17,7 @@ public class DailySelfieReceiver extends BroadcastReceiver {
     //Tag to log and debug
     private static final String TAG = DailySelfieReceiver.class.getSimpleName();
 
-    private static final CharSequence textTitle = "Time to another selfie";
+    private static final CharSequence textTitle   = "Time to another selfie";
     private static final CharSequence textContent = "The last time you take photos is so long ago. Please update yourself!";
 
     @Override
@@ -32,9 +32,9 @@ public class DailySelfieReceiver extends BroadcastReceiver {
         Intent openApp = new Intent(context, MainActivity.class);
         openApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                                                                 0,
-                                                                 openApp,
-                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
+                                                                0,
+                                                                openApp,
+                                                                PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, AppConstants.Notification.CHANNEL_ID)
                                                                    .setSmallIcon(android.R.drawable.ic_menu_camera)
