@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                     if (photoFile != null) {
                         Uri photoURI = FileProvider.getUriForFile(this,
                                                                   "com.example.android.fileprovider",
-                                                                   photoFile);
+                                                                  photoFile);
                         takePhoto.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult.launch(takePhoto);
                     }
